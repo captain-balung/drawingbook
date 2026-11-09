@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-Hant"><meta charset="utf-8"><title>繪本初版</title>
+<style>
+body{font-family:Arial,"Microsoft JhengHei",sans-serif;background:#f4efe6;color:#293d38;margin:30px}
+main{width:960px;margin:auto}img{width:960px;height:720px;object-fit:contain;background:#e3dccf}
+button{font-size:18px;padding:12px 22px;margin:8px;border:1px solid #677f73;background:white;border-radius:8px}
+</style>
+<main><h1>我的有聲繪本</h1><p>按「開始閱讀」開啟背景音樂。</p>
+<button id="start">開始閱讀</button><br><img id="picture" src="assets/graphics/0.jpg" alt="繪本畫面">
+<div><button id="prev">上一頁</button><button id="read">朗讀</button><button id="next">下一頁</button></div></main>
+<script>
+// 課堂初版：僅示範基本功能，供完成作品後觀察與改善。
+let page=0,started=false;
+const music=new Audio(); music.loop=true; music.volume=.6; music.preload='none';
+function show(){
+ document.querySelector('#picture').src=`assets/graphics/${page}.jpg`;
+ music.src=`assets/music/music${page}.mp3`;
+ if(started)music.play().catch(()=>{});
+}
+document.querySelector('#start').onclick=()=>{started=true;show()};
+document.querySelector('#prev').onclick=()=>{page=Math.max(0,page-1);show()};
+document.querySelector('#next').onclick=()=>{page=Math.min(19,page+1);show()};
+document.querySelector('#read').onclick=()=>{
+ const speech=new Audio(`assets/speech/speech${page}.mp3`);
+ speech.play().catch(()=>{});
+};
+</script></html>
